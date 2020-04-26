@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="theme-color" content="#563d7c">
+    <title>QRcode information</title>
+    <link rel="stylesheet" href="/bootstrap.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="/bootstrap.js"></script>
+</head>
+
+<style>
+    #content {
+        margin-left: auto ;
+        margin-right: auto ;
+    }
+</style>
+
+<body class="text-center">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <nav id="navbarCreds" class="navbar navbar-dark bg-dark navbar-expand-lg">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/retailer/panel">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/retailer/myShop">My Shop</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/retailer/myAccount">QRcode information</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto mt-2">
+                <li class="nav-item">
+                    <a href="/retailer/login"><button class="btn btn-dark my-1" style="width: 120px;" id="logoutbtn">Log out</button></a>
+                    <script>
+                        var logOutBtn = document.getElementById("logoutbtn").addEventListener("click", function() {
+                            document.cookie = "sessionid=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                            window.location.replace("/retailer/login");
+                        });
+                    </script>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <h1 style="font-family:Arial, Helvetica, sans-serif">QRcode information : </h1>
+    <h3 id="1"></h3>
+    <h3 id="2"></h3>
+    <h3 id="3"></h3>
+    <h3 id="4"></h3>
+    <h3 id="5"></h3>
+    <script>
+        var position = window.location.pathname.lastIndexOf('/');
+        var randomCodeToCheckFor = window.location.pathname.substring(position + 1);
+        fetch("/api/getUserInfo",{
+              method:"POST",
+              headers:{
+                "Content-Type":"application/json"
+              },
+              body:JSON.stringify({randomCode:randomCodeToCheckFor})
+            }).then(response => {
+              return response.json();
+            }).then(response => {
+                if(response.address == null){
+                    document.getElementById("1").innerHTML = "invalid code";
+                }else{
+                document.getElementById("1").innerHTML = "City : " + response.address;
+                document.getElementById("2").innerHTML = "Time in "  + response.timeIn;
+                document.getElementById("3").innerHTML ="Time out : " + response.timeOut;
+            }
+            })
+    </script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.6">
+    <title>Groceryzon</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/cover/">
+
+    <!-- Bootstrap core CSS -->
+<link href="https://getbootstrap.com/docs/4.4/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- Favicons -->
+<link rel="apple-touch-icon" href="https://getbootstrap.com/docs/4.4/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="manifest" href="https://getbootstrap.com/docs/4.4/assets/img/favicons/manifest.json">
+<link rel="mask-icon" href="https://getbootstrap.com/docs/4.4/assets/img/favicons/safari-pinned-tab.svg" color="#563d7c">
+<meta name="msapplication-config" content="https://getbootstrap.com/docs/4.4/assets/img/favicons/browserconfig.xml">
+<meta name="theme-color" content="#563d7c">
+
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      /* Set the size of the div element that contains the map */
+      #map {
+        height: 400px;  /* The height is 400 pixels */
+        width: 100%;  /* The width is the width of the web page */
+       }
+  
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="cover.css" rel="stylesheet">
+  </head>
+  <body class="text-center">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+  <header class="masthead mb-auto">
+    <div class="inner">
+      <h3 class="masthead-brand">Groceryzon</h3>
+      <nav class="nav nav-masthead justify-content-center">
+        <a class="nav-link" href="/">Home</a>
+        <a class="nav-link" href="/features">How it Works</a>
+        <a class="nav-link active" href="/shop">Shop</a>
+        <a class="nav-link" href="/becomeVendor">Become a Retailer</a>
+      </nav>
+    </div>
+  </header>
+
+  <main role="main" class="inner cover">
+    
+    <div id="map"></div>
+    <script>
+    // Initialize and add the map
+    function initMap() {
+      // The location of Uluru
+      var toronto = {lat: 43.6487, lng: -79.38544};
+      var montreal = {lat: 45.5124, lng: -73.55468};
+      // The map, centered at Uluru
+      var map = new google.maps.Map(
+          document.getElementById('map'), {zoom: 4, center: toronto});
+      // The marker, positioned at toronto
+      //var marker = new google.maps.Marker({position: toronto, map: map});
+      var marker1 = new google.maps.Marker({position: montreal, map: map});
+
+      var contentString = '<div id="content">'+
+      '<div id="siteNotice">'+
+      '</div>'+
+      '<h1 color= "Black">Store 1</h1>'+
+      '<div id="bodyContent">'+
+      '<p><a href="/time">Book a time</a></p>'+
+      '</div>'+
+      '</div>';
+
+      var infowindow = new google.maps.InfoWindow({
+      content: contentString
+      });
+
+      var marker = new google.maps.Marker({
+        position: toronto,
+        map: map,
+        title: 'Store 1'
+      });
+      marker.addListener('click', function() {
+        infowindow.open(map, marker);
+      });
+    }
+
+    </script>
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?AIzaSyCH0iHdliy0QC4W-23aSHJ3KvCaQ155HZ8=YOUR_API_KEY&callback=initMap">
+    </script>
+  </main>
+
+  <footer class="mastfoot mt-auto">
+    <div class="inner">
+      <p>Made with ❤️ by Azeddine + Karl, for <a href="https://togethervsvirus.ca/">togethervsvirus</a></p>
+    </div>
+  </footer>
+</div>
+</body>
+</html>

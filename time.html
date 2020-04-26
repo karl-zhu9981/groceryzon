@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+  <title>Booking Form</title>
+
+  <!-- Google font -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+
+  <!-- Bootstrap -->
+  <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
+
+  <!-- Custom stlylesheet -->
+  <link type="text/css" rel="stylesheet" href="css/style.css" />
+
+  
+
+</head>
+
+<body>
+  <div id="booking" class="section">
+    <div class="section-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-7 col-md-push-5">
+            <div class="booking-cta">
+              <h1>Make your reservation</h1>
+              <p>Choose the time that you would like to go to the store.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-4 col-md-pull-7">
+            <div class="booking-form">
+              <span class="form-label">Store Name: Freshco</span>
+              <p>1000 Anywhere St, Montreal, QC </p>
+                <div class="form-group">
+                  <span class="form-label">Email Address</span>
+                  <input class="form-control" id="inputEmail" type="text" placeholder="Email">
+                </div>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <span class="form-label">Time in</span>
+                      <select class="form-control" id="timeIn">
+                        <option>9:00am</option>
+                        <option>10:00am</option>
+                        <option>11:00am</option>
+                        <option>12:00pm</option>
+                        <option>1:00pm</option>
+                        <option>2:00pm</option>
+                        <option>3:00pm</option>
+                        <option>4:00pm</option>
+                        <option>5:00pm</option>
+                        <option>6:00pm</option>
+                        <option>7:00pm</option>
+                        <option>8:00pm</option>
+                      </select>
+                      <span class="select-arrow"></span>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <span class="form-label">Time out</span>
+                      <select class="form-control" id="timeOut">
+                        <option>9:00am</option>
+                        <option>10:00am</option>
+                        <option>11:00am</option>
+                        <option>12:00pm</option>
+                        <option>1:00pm</option>
+                        <option>2:00pm</option>
+                        <option>3:00pm</option>
+                        <option>4:00pm</option>
+                        <option>5:00pm</option>
+                        <option>6:00pm</option>
+                        <option>7:00pm</option>
+                        <option>8:00pm</option>
+                      </select>
+                      <span class="select-arrow"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <span class="form-label">Adults</span>
+                      <select class="form-control" id="adults">
+                        <option>0</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                      </select>
+                      <span class="select-arrow"></span>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <span class="form-label">Children</span>
+                      <select class="form-control" id="children">
+                        <option>0</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                      </select>
+                      <span class="select-arrow"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-btn">
+                  <button id="submitBtn" class="submit-btn">Check availability</button>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+<script>
+   document.getElementById("submitBtn").addEventListener("click", function(){
+    fetch("/api/requestStore", {
+                            method:'POST',
+                            body: JSON.stringify({email:document.getElementById("inputEmail").value,timeIn:document.getElementById("timeIn").value,timeOut:document.getElementById("timeOut").value,adults:document.getElementById("adults").value,children:document.getElementById("children").value}),
+                            headers:{"Content-Type": "application/json"}
+                            }).then(response => {
+                                if(response.status == 200){
+                                  window.location.replace("/thanks");
+                                }else if(response.status == 400){
+                                  var msgText = document.getElementById("errorMsgIfAny").innerHTML = "Your email is already registrated!";
+                                }
+                            })
+   })
+</script>
+
+</html>

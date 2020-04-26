@@ -1,0 +1,152 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.6">
+    <title>Groceryzon</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/cover/">
+
+    <!-- Bootstrap core CSS -->
+<link href="https://getbootstrap.com/docs/4.4/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- Favicons -->
+<link rel="apple-touch-icon" href="https://getbootstrap.com/docs/4.4/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="manifest" href="https://getbootstrap.com/docs/4.4/assets/img/favicons/manifest.json">
+<link rel="mask-icon" href="https://getbootstrap.com/docs/4.4/assets/img/favicons/safari-pinned-tab.svg" color="#563d7c">
+<meta name="msapplication-config" content="https://getbootstrap.com/docs/4.4/assets/img/favicons/browserconfig.xml">
+<meta name="theme-color" content="#563d7c">
+
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="cover.css" rel="stylesheet">
+  </head>
+  <body class="text-center">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+  <header class="masthead mb-auto">
+    <div class="inner">
+      <h3 class="masthead-brand">Groceryzon</h3>
+      <nav class="nav nav-masthead justify-content-center">
+        <a class="nav-link" href="/">Home</a>
+        <a class="nav-link" href="/features">How it Works</a>
+        <a class="nav-link" href="/shop">Shop</a>
+        <a class="nav-link active" href="/becomeVendor">Become a Retailer</a>
+      </nav>
+    </div>
+  </header>
+
+  <main role="main" class="inner cover">
+   <h2 class="cover-heading" style="font-family: 'Courier New', Courier, monospace;">Own a store?</h2>
+   <h2 class="cover-heading" style="font-family: 'Courier New', Courier, monospace;">Ready to help your customers?</h2>
+   <h2 class="cover-heading" style="font-family: 'Courier New', Courier, monospace;">Create an account now!</h2>
+   <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail">Email</label>
+      <input type="email" class="form-control" id="inputEmail" placeholder="example@example.com">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword">Password</label>
+      <input type="password" class="form-control" id="inputPassword" placeholder="password" minlength="8">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputAddress">Address</label>
+    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+  </div>
+  <div class="form-group">
+    <label for="inputAddress2">Address 2</label>
+    <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, Studio, PO Box">
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputCity">City</label>
+      <input type="text" class="form-control" id="inputCity" placeholder="city">
+    </div>
+    <div class="form-group col-md-4">
+      <label for="inputState">Province</label>
+      <select id="inputState" class="form-control">
+        <option selected>Choose...</option>
+        <option>ON</option>
+        <option>QC</option>
+        <option>NS</option>
+        <option>NB</option>
+        <option>MB</option>
+        <option>BC</option>
+        <option>PE</option>
+        <option>SK</option>
+        <option>AB</option>
+        <option>NL</option>
+      </select>
+    </div>
+    <div class="form-group col-md-2">
+      <label for="inputZip">Postal Code</label>
+      <input type="text" class="form-control" id="inputZip" placeholder="A1A 1A1">
+    </div>
+  </div>
+  <div class="form-group">
+  </div>
+  <button type="submit" class="btn btn-lg btn-secondary" style="font-family:Cambria, Cochin, Georgia, Times, 'Cambria', serif;" id="createBtn">Create Account</button>
+  <h3 id="errorMsgIfAny" class="cover-heading" style="color: red; font-family: Cambria, Cochin, Georgia, Times, 'Cambria', sans-serif;"></h3>
+  <h3 id="successMsg" class="cover-heading" style="color: rgb(35, 226, 83); font-family: Cambria, Cochin, Georgia, Times, 'Cambria', sans-serif;"></h3>
+  <h3 id="successMsgTwo" class="cover-heading" style="color: rgb(35, 226, 83); font-family: Cambria, Cochin, Georgia, Times, 'Cambria', sans-serif;"></h3>
+  </main>
+
+  <script>
+    document.getElementById("createBtn").addEventListener("click", function(){
+      if(document.getElementById("inputEmail").value.length == 0){
+        document.getElementById("errorMsgIfAny").innerHTML = "Email field is empty.";
+      }else if(document.getElementById("inputPassword").value.length == 0){
+        document.getElementById("errorMsgIfAny").innerHTML = "Password field is empty.";
+      }else if(document.getElementById("inputAddress").value.length == 0){
+        document.getElementById("errorMsgIfAny").innerHTML = "Address field is empty.";
+      }else if(document.getElementById("inputCity").value.length == 0){
+        document.getElementById("errorMsgIfAny").innerHTML = "City field is empty.";
+      }else if(document.getElementById("inputState").value == "Choose..."){
+        document.getElementById("errorMsgIfAny").innerHTML = "Province field is empty.";
+      }else if(document.getElementById("inputZip").value.length == 0){
+        document.getElementById("errorMsgIfAny").innerHTML = "ZipCode field is empty.";
+      }
+      else{
+            fetch("/api/createAccount", {
+                            method:'POST',
+                            body: JSON.stringify({email:document.getElementById("inputEmail").value,password:document.getElementById("inputPassword").value,addressOne:document.getElementById("inputAddress").value,addressTwo:document.getElementById("inputAddress2").value,state:document.getElementById("inputState").value,city:document.getElementById("inputCity").value,zipCode:document.getElementById("inputZip").value}),
+                            headers:{"Content-Type": "application/json"}
+                            }).then(response => {
+                                if(response.status == 201){
+                                  var msgText = document.getElementById("successMsg").innerHTML = "Thanks for joining us!";
+                                  var msgText = document.getElementById("successMsgTwo").innerHTML = "Please check your email!";
+                                }else if(response.status == 400){
+                                  var msgText = document.getElementById("errorMsgIfAny").innerHTML = "Your email is already registrated!";
+                                }
+                            })
+        }})
+  </script>
+
+  <footer class="mastfoot mt-auto">
+    <div class="inner">
+      <p>Made with ❤️ by Azeddine + Karl, for <a href="https://togethervsvirus.ca/">togethervsvirus</a></p>
+    </div>
+  </footer>
+</div>
+</body>
+</html>

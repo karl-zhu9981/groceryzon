@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Log in</title>
+    <link rel="stylesheet" href="/bootstrap.css">
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a href="#"><button class="btn btn-primary">Groceryzon</button></a>
+            </li>
+        </ul>
+    </nav>
+
+
+   
+    
+    
+   
+
+    <b><h1 style="color: rgb(255, 255, 255);position: absolute;top: 35%;left: 50%;transform: translate(-50%,-50%); ">Log in</h1></b>
+    <input id="usernameTextBox" class="form-control" style="position: absolute;top: 45%;left: 50%;transform: translate(-50%,-50%); width: 200px; height: 50px;" type="text" placeholder="email" required>
+    <input id="passwordTextBox" class="form-control" style="position: absolute;top: 55%;left: 50%;transform: translate(-50%,-50%); width: 200px; height: 50px;" type="password" placeholder="password" required>
+    <button id="loginBtn" class="btn btn-primary" style="position: absolute;top: 65%;left: 50%;transform: translate(-50%,-50%); width: 200px; height: 50px;">Log in</button>
+
+    <script>
+        var btn = document.getElementById("loginBtn").addEventListener('click', function(){
+                    var usernameBox = document.getElementById("usernameTextBox");
+                    var passwordBox = document.getElementById("passwordTextBox");
+                    if(usernameBox.value.length == 0 || passwordBox.value.length == 0){
+                        document.getElementById("loginBtn").disabled = true;
+                            document.getElementById("loginBtn").innerHTML = "Loading ";
+                            var btnLoading = document.createElement("span");
+                            btnLoading.className = "spinner-border spinner-border-sm";
+                            btnLoading.setAttribute("role","status");
+                            document.getElementById("loginBtn").appendChild(btnLoading);
+                            setTimeout(function(){
+                                btnLoading.remove();
+                                document.getElementById("loginBtn").disabled = false;
+                                document.getElementById("loginBtn").innerHTML = "Log in "; 
+                                var errorAlert = document.createElement("div");
+                                errorAlert.className = "alert alert-danger";
+                                errorAlert.setAttribute("role","alert");
+                                errorAlert.innerHTML = "no empty fields. thx";
+                                errorAlert.style = "position: absolute;top: 60%;left: 50%;transform: translate(-50%,-50%); width: 200px; height: 50px;";
+                                window.document.body.append(errorAlert);
+
+                                setTimeout(function(){
+                                    errorAlert.remove();
+                                },3000);
+                            }, 1000);
+                    }else{
+
+                        fetch("/api/login", {
+                            method:'POST',
+                            body: JSON.stringify({email:usernameBox.value,password:passwordBox.value}),
+                            headers:{"Content-Type": "application/json"}
+                            }).then(response => {
+                                //
+                                if(response.status == 200){
+                                    document.getElementById("loginBtn").disabled = true;
+                                    document.getElementById("loginBtn").innerHTML = "Loading ";
+                                    var btnLoading = document.createElement("span");
+                                    btnLoading.className = "spinner-border spinner-border-sm";
+                                    btnLoading.setAttribute("role","status");
+                                    document.getElementById("loginBtn").appendChild(btnLoading);
+                                    setTimeout(function(){
+                                    btnLoading.remove();
+                                    document.getElementById("loginBtn").disabled = false;
+                                    document.getElementById("loginBtn").innerHTML = "Log in "; 
+                                    window.document.location.replace("/retailer/panel");
+                                    }, 3000);
+                                }else if(response.status == 404){
+                                    document.getElementById("loginBtn").disabled = true;
+                                    document.getElementById("loginBtn").innerHTML = "Loading ";
+                                    var btnLoading = document.createElement("span");
+                                    btnLoading.className = "spinner-border spinner-border-sm";
+                                    btnLoading.setAttribute("role","status");
+                                    document.getElementById("loginBtn").appendChild(btnLoading);
+                                    setTimeout(function(){
+                                    btnLoading.remove();
+                                    document.getElementById("loginBtn").disabled = false;
+                                    document.getElementById("loginBtn").innerHTML = "Log in "; 
+                                    var errorAlert = document.createElement("div");
+                                    errorAlert.className = "alert alert-danger";
+                                    errorAlert.setAttribute("role","alert");
+                                    errorAlert.innerHTML = "email doesn't exist";
+                                    errorAlert.style = "position: absolute;top: 60%;left: 50%;transform: translate(-50%,-50%); width: 200px; height: 50px;";
+                                    window.document.body.append(errorAlert);
+
+                                    setTimeout(function(){
+                                        errorAlert.remove();
+                                    },3000);
+                                    }, 3000);
+                                }else if(response.status == 400){
+                                    document.getElementById("loginBtn").disabled = true;
+                                    document.getElementById("loginBtn").innerHTML = "Loading ";
+                                    var btnLoading = document.createElement("span");
+                                    btnLoading.className = "spinner-border spinner-border-sm";
+                                    btnLoading.setAttribute("role","status");
+                                    document.getElementById("loginBtn").appendChild(btnLoading);
+                                    setTimeout(function(){
+                                    btnLoading.remove();
+                                    document.getElementById("loginBtn").disabled = false;
+                                    document.getElementById("loginBtn").innerHTML = "Log in "; 
+                                    var errorAlert = document.createElement("div");
+                                    errorAlert.className = "alert alert-danger";
+                                    errorAlert.setAttribute("role","alert");
+                                    errorAlert.innerHTML = "wrong credentials";
+                                    errorAlert.style = "position: absolute;top: 60%;left: 50%;transform: translate(-50%,-50%); width: 200px; height: 50px;";
+                                    window.document.body.append(errorAlert);
+
+                                    setTimeout(function(){
+                                        errorAlert.remove();
+                                    },3000);
+                                    }, 3000);
+                                }
+
+                                })
+
+                    }
+                })
+    </script>
+    
+</body>
+</html>

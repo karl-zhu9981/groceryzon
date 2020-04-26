@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="theme-color" content="#563d7c">
+    <title>My Account</title>
+    <link rel="stylesheet" href="/bootstrap.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="/bootstrap.js"></script>
+</head>
+
+<style>
+    #content {
+        margin-left: auto ;
+        margin-right: auto ;
+    }
+</style>
+
+<body class="text-center">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <nav id="navbarCreds" class="navbar navbar-dark bg-dark navbar-expand-lg">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/retailer/panel">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/retailer/myShop">My Shop</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/retailer/myAccount">QRcode Settings</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto mt-2">
+                <li class="nav-item">
+                    <a href="/retailer/login"><button class="btn btn-dark my-1" style="width: 120px;" id="logoutbtn">Log out</button></a>
+                    <script>
+                        var logOutBtn = document.getElementById("logoutbtn").addEventListener("click", function() {
+                            document.cookie = "sessionid=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                            window.location.replace("/retailer/login");
+                        });
+                    </script>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <h1 style="font-family:Arial, Helvetica, sans-serif">Create your shop!</h1>
+
+   <main role="main" class="inner cover">
+   <div id = "content">
+    <form id="form" action="/api/createShop" method="POST" enctype="multipart/form-data" >
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="ShopCreate">Name</label>
+            <input type="text" class="form-control" id="nameInput" placeholder="Name">
+        </div>
+    
+    <div class="form-group col-md-6">
+        <label for="ShopCreate">Capacity per Hour</label>
+         <input type="number" class="form-control" id="capacityHourInput" placeholder="#">
+    </div>
+    </div >
+    <div class="form-row">
+        <div class="form-group col-md-12">
+            <label for="ShopCreate">Shop Description</label>
+            <input type="text" class="form-control" id="descriptionInput" placeholder="Description">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-12">
+            <label for="ShopCreate">Photo</label>
+            <input type="file" class="form-control" id="imageInput" placeholder="Upload Photo" accept="image/*">
+        </div>
+    </div>
+   </div>
+   </div>
+   <button id="createBtn" style="text-align:center ;" type="button" form="form" class="btn btn-primary">Create</button>
+</form>
+</main>
+    
+    <!-- <br>
+    <input name="inpFile" id="inpFile" type="file">
+    <div class="image-preview" id="imagePreview">
+        <img src="" id="image-preview" alt="Image Preview">
+        <span class="image-preview-text">Image Preview</span>
+    </div>
+    <script>
+        const inpFile = document.getElementById("inpFile");
+        const previewContainer = document.getElementById("imagePreview");
+        const previewIamge = previewContainer.querySelector(".image-preview")
+
+        inpFile.addEventListener("change", function(){
+            const file = this.files[0];
+            console.log(file);
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function () {
+                console.log(reader.result);
+            };
+            reader.onerror = function (error) {
+                console.log('Error: ', error);
+            };
+        })
+    </script> -->
+
+    <script>
+        //
+        document.getElementById("createBtn").addEventListener("click", function(){
+            if(document.getElementById("nameInput").value.length == 0){
+                var errorAlert = document.createElement("div");
+                errorAlert.className = "alert alert-danger";
+                errorAlert.setAttribute("role","alert");
+                errorAlert.innerHTML = "Name field can't be empty";
+                document.body.append(errorAlert);                
+                setTimeout(function(){ 
+                    errorAlert.remove();
+                 }, 3000);
+                document.body.append(errorAlert);                
+            }else if(document.getElementById("capacityHourInput").value.length == 0){
+                var errorAlert = document.createElement("div");
+                errorAlert.className = "alert alert-danger";
+                errorAlert.setAttribute("role","alert");
+                errorAlert.innerHTML = "Capacity field can't be empty";
+                document.body.append(errorAlert);                
+                setTimeout(function(){ 
+                    errorAlert.remove();
+                 }, 3000);
+            }else{
+            fetch("/api/createShop", {
+                            method:'POST',
+                            body: JSON.stringify({name:document.getElementById("nameInput").value,capacityHour:document.getElementById("capacityHourInput").value,photo:"not yet implemented ;u"}),
+                            headers:{"Content-Type": "application/json"}
+                            }).then(response => {
+                                if(response.status == 201){
+                                    var successAlert = document.createElement("div");
+                                    successAlert.className = "alert alert-success";
+                                    successAlert.setAttribute("role","alert");
+                                    successAlert.innerHTML = "Created!";
+                                    document.body.append(successAlert);                
+                                    setTimeout(function(){ 
+                                        successAlert.remove();
+                                    }, 3000);
+                                }else if(response.status == 400){
+                                }
+                            })}
+        })
+
+
+
+        
+    </script>
+</body>
+</html>
